@@ -3,12 +3,23 @@
 this fabric script uses the previous one created to distribute an archive
 to teh web-servers, using the function do_deploy
 """
+from time import strftime
+from fabric.api import local
 from os import path
 from fabric.api import run, env, put
 env.hosts = ['54.237.88.25', '54.90.40.27']
 env.user = "ubuntu"
 
 
+def do_pack():
+    """this generates a .tgz archive"""
+    currentTime = strftime("%Y%M%d%H%M%S")
+
+    local("mkdir -p versions")
+    archivedFilePath = "versions/web_static_{}.tgz".format(currentTime)
+    local("tar -cvzf {} web_static/".format(archivedFilePath))
+    return archivedFilePath
+    
 def do_deploy(archive_path):
     """This distributes a .tgz archive through web servers"""
     if path.exists(archive_path):
