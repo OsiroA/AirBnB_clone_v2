@@ -19,7 +19,8 @@ def do_pack():
     archivedFilePath = "versions/web_static_{}.tgz".format(currentTime)
     local("tar -cvzf {} web_static/".format(archivedFilePath))
     return archivedFilePath
-    
+
+
 def do_deploy(archive_path):
     """This distributes a .tgz archive through web servers"""
     if path.exists(archive_path):
@@ -38,6 +39,7 @@ def do_deploy(archive_path):
         return True
     else:
         return False
+
 
 def deploy():
     archive_path = do_pack()
