@@ -15,12 +15,14 @@ def hello():
     """
     return 'Hello HBNB!'
 
+
 @oosi.route('/hbnb', strict_slashes=False)
 def helloHbnb():
     """
     This function displays just HBNB
     """
     return 'HBNB'
+
 
 if __name__ == '__main__':
     oosi.run(host='0.0.0.0', port=5000)

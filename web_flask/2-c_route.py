@@ -15,6 +15,7 @@ def hello():
     """
     return 'Hello HBNB!'
 
+
 @oosi.route('/hbnb', strict_slashes=False)
 def helloHbnb():
     """
@@ -22,7 +23,8 @@ def helloHbnb():
     """
     return 'HBNB'
 
-@oosi.route('/c/<text>')
+
+@oosi.route('/c/<text>', strict_slashes=False)
 def cRoute(text):
     '''
     this displays C followed by the value of
