@@ -43,17 +43,17 @@ def pythonRoute(text="is cool"):
     return "Python {}".format(text)
 
 
-@oosi.route('/number/<n>', strict_slashes=False)
+@oosi.route('/number/<int:n>', strict_slashes=False)
 def numberRoute(n):
     '''
     This displays the value [passed into the function
     only if it is an integer
     '''
-    try:
-        n = int(n)
-        return "{} is a number".format(n)
+    return "{} is a number".format(n)
+    '''
     except ValueError:
         return "N no be number"
+    '''
 
 
 if __name__ == '__main__':
