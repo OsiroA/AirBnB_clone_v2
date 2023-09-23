@@ -22,5 +22,13 @@ def helloHbnb():
     """
     return 'HBNB'
 
+@oosi.route('/c/<text>')
+def cRoute(text):
+    '''
+    this displays C followed by the value of
+    the text variable
+    '''
+    return "C {}".format(text.replace("_", " "))
+
 if __name__ == '__main__':
     oosi.run(host='0.0.0.0', port=5000)
