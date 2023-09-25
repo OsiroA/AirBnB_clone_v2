@@ -2,27 +2,62 @@
 """
 This starts a Flask web application.
 """
-from models import storage
+
 from flask import Flask
 from flask import render_template
+from models import *
 
-oosi = Flask(__name__)
+app = Flask(__name__)
 
 
-@oosi.route("/states_list", strict_slashes=False)
+@app.route('/')
+def index():
+    return "Hello HBNB!"
+
+
+@app.route('/hbnb')
+def hbnb():
+    return "HBNB"
+
+
+@app.route('/c/<string:s>')
+def c(s):
+    new_s = s.replace("_", " ")
+    return "C {}".format(new_s)
+
+
+@app.route('/python', strict_slashes=False)
+@app.route('/python/<string:s>')
+def python(s="is cool"):
+    new_s = s.replace("_", " ")
+    return "Python {}".format(new_s)
+
+
+@app.route('/number/<int:n>')
+def number(n):
+    return "{} is a number".format(n)
+
+
+@app.route('/number_template/<int:n>')
+def number_template(n):
+    return render_template('5-number.html', num=n)
+
+
+@app.route('/number_odd_or_even/<int:n>')
+def number_odd_or_even(n):
+    return render_template('6-number_odd_or_even.html', num=n)
+
+
+@app.route('/states_list')
 def states_list():
-    """
-    Displays an HTML page with a list of all State objects in DBStorage.
-    """
-    states = storage.all("State")
-    return render_template("7-states_list.html", states=states)
+    return render_template('7-states_list.html',
+                           states=storage.all("State"))
 
 
-@oosi.teardown_appcontext
-def teardown(exc):
-    """Remove the current SQLAlchemy session."""
+@app.teardown_appcontext
+def teardown(err):
     storage.close()
 
 
 if __name__ == "__main__":
-    oosi.run(host="0.0.0.0", port=5000)
+    app.run(host='0.0.0.0', port=5000)
